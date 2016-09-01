@@ -4,38 +4,77 @@
 #include <stdexcept>
 
 // Construct a empty string(zero size and unspecified capacity).
-MySTLString::MySTLString()
+MySTLString::MySTLString():data_(nullptr), length_(0)
 {
-	data_ = '\0';
+	
 }
 
 // Constructs the string with count copies of character ch.
-MySTLString::MySTLString(size_t count, char ch):data_(new char[count])
+MySTLString::MySTLString(size_t count, char ch)
 {
-	for (size_t i = 0; i < count; ++i)
-	{
-		data_[i] = ch;
+	length_ = count;
+	if (count == 0)
+	{	
+		data_ = nullptr;
+		return;
 	}
+	else	// when count is not 0
+	{
+		data_ = new char[length_];
+		for (size_t i = 0; i < count; ++i)
+		{
+			data_[i] = ch;
+		}
+	}
+	
 }
 
 // Constructs the string with contents initialized 
 // with a copy of the null-terminated character string pointed to by s.
 // The length of the string is determined by the first null character. 
-MySTLString::MySTLString(const char *s):data_(new char[strlen(s)])
+MySTLString::MySTLString(const char *s)
 {
+	length_ = strlen(s);
+	if (length_ == 0)
+	{
+		data_ = nullptr;
+		return;
+	}
+	data_ = new char[length_];
 	strcpy(data_, s);
 }
 
 // Copy constructor. 
 // Constructs the string with the copy of the contents of other.
-MySTLString::MySTLString(const MySTLString &s):data_(new char[strlen(s.data_)])
+MySTLString::MySTLString(const MySTLString &s)
 {
-	strcpy(data_, s.data_);
+	if (s.data_ == nullptr)
+	{
+		length_ = 0;
+		data_ = nullptr;
+	}
+	else
+	{
+		length_ = strlen(s.data_);
+		data_ = new char[length_];
+		strcpy(data_, s.data_);
+	}
+}
+
+// Destructor
+// Free data_ pointer memory
+MySTLString::~MySTLString()
+{
+	if (data_ != nullptr)
+	{
+		delete []data_;
+	}
+	std::cout << "length_ = " << length_ << std::endl;	// for test
 }
 
 // Returns a reference to the character at specified location pos.
 // Bounds checking is performed, exception of type std::out_of_range will be thrown on invalid acess
-MySTLString::CharT& MySTLString::at(size_type pos)
+MySTLString::reference MySTLString::at(size_type pos)
 {
 	if (pos >= strlen(data_))
 	{
@@ -43,6 +82,7 @@ MySTLString::CharT& MySTLString::at(size_type pos)
 	}
 	return data_[pos];
 }
+
 
 // Returns reference to the first character
 MySTLString::CharT& MySTLString::front()
@@ -52,6 +92,11 @@ MySTLString::CharT& MySTLString::front()
 		throw std::out_of_range("String is empty!\n");
 	}
 		return data_[0];
+}
+
+const MySTLString::CharT& MySTLString::front() const
+{
+	return this->front();
 }
 
 // Returns reference to the last character
@@ -64,16 +109,26 @@ MySTLString::CharT& MySTLString::back()
 	return data_[0];
 }
 
+const MySTLString::CharT& MySTLString::back() const
+{
+	return this->back();
+}
+
 // Returns pointer to the underlying array serving as character storage.
 // The pointer is such that the range[data(); data()+strlen(data_)] is valid 
 // in it correspond to the values stored in the string
-const MySTLString::CharT* MySTLString::data() const
+MySTLString::CharT* MySTLString::data() 
 {
 	if (data_ == nullptr)
 	{
 		throw std::out_of_range("String is empty!\n");
 	}
 	return data_;
+}
+
+const MySTLString::CharT* MySTLString::data() const
+{
+	return this->data();
 }
 
 // Operator= overloaded
@@ -86,18 +141,30 @@ MySTLString& MySTLString::operator=(const MySTLString &s)
 	{
 		return *this;
 	}
-
-	char* temp = new char(*s.data_);	// copy *s.data_
+	if (s.length_ == 0)
+	{
+		length_ = 0;
+		data_ = nullptr;
+		return *this;
+	}
+	char* temp = s.data_;	// copy *s.data_
 	delete data_;						// free old memory
-	data_ = new char(*temp);			// copy data to data_ member
+	data_ = new char[s.length_];			// copy data to data_ member
+	strcpy(data_, temp);
+	length_ = s.length_;
 	return *this;						// return this object
 }
 
 // Operator[] overloaded
 // Returns a reference to the character at specified location pos. 
 // No bounds checking is perfromed.
-MySTLString::CharT& MySTLString::operator[](size_type pos)
+MySTLString::reference MySTLString::operator[](size_type pos)
 {
 	return this->at(pos);
+}
+
+MySTLString::const_reference MySTLString::operator[](size_type pos) const
+{
+	return this->operator[](pos);
 }
 
