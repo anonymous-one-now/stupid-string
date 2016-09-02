@@ -34,8 +34,13 @@ int main(void)
 	// test at() to return reference
 	cout << "Test at():" << endl;
 //	cout << "s1.at(0) = " << s1.at(0) << endl;			// will throw exception
-//	cout << "s3.at(1) = " << s3.at(1) << endl;
+	cout << "s3.at(1) = " << s3.at(1) << endl;
 	cout << "**********************" << endl;
+	
+	// test const at() const
+	MySTLString::const_reference const_at_value = s3.at(2);
+	cout << "Test const at():" << endl;
+	cout << "const_at_value(which is s3.at(2)) = " << const_at_value << endl;
 
 	// test front() to return reference
 	cout << "Test front():" << endl;
@@ -46,12 +51,12 @@ int main(void)
 	// test back() to return reference
 	cout << "Test back():" << endl;
 //	cout << "s1.back() = " << s1.back() << endl;		// will throw exception
-//	cout << "s3.back() = " << s3.back() << endl;
+	cout << "s3.back() = " << s3.back() << endl;
 	cout << "**********************" << endl;
 
 	// test data() to return pointer
 //	cout << "s1.data() = " << s1.data() << endl;		// will throw exception
-//	cout << "s3.data() = " << s3.data() << endl;
+	cout << "s3.data() = " << s3.data() << endl;
 	cout << "**********************" << endl;
 
 	// test operator[](size_type pos) to return CharT

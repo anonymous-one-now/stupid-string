@@ -70,7 +70,7 @@ MySTLString::~MySTLString()
 	{
 		delete []data_;
 	}
-	std::cout << "length_ = " << length_ << std::endl;	// for test
+//	std::cout << "length_ = " << length_ << std::endl;	// for test
 }
 
 // Returns a reference to the character at specified location pos.
@@ -101,7 +101,7 @@ MySTLString::reference MySTLString::front()
 
 MySTLString::const_reference MySTLString::front() const
 {
-	return this->front();
+	return const_cast<MySTLString*>(this)->front();
 }
 
 // Returns reference to the last character
@@ -122,7 +122,7 @@ MySTLString::const_reference MySTLString::back() const
 // Returns pointer to the underlying array serving as character storage.
 // The pointer is such that the range[data(); data()+strlen(data_)+1) is valid 
 // in it correspond to the values stored in the string
-MySTLString::pointer MySTLString::data()
+MySTLString::CharT* MySTLString::data()
 {
 	if (data_ == nullptr)
 	{
@@ -131,7 +131,15 @@ MySTLString::pointer MySTLString::data()
 	return data_;
 }
 
-MySTLString::const_pointer MySTLString::data() const
+const MySTLString::CharT* MySTLString::data() const
+{
+	return const_cast<MySTLString*>(this)->data();
+}
+
+// Returns a pointer to null-terminated character array with data equivalent to those stored in the string
+// The pointer is such that the arrange [c_str(); c_str() + length_ + 1) is valid and the values in 
+// it correspond to the values stored in the string with an additional null character after the last position. 
+const MySTLString::CharT* MySTLString::c_str() const
 {
 	return const_cast<MySTLString*>(this)->data();
 }
@@ -170,6 +178,6 @@ MySTLString::reference MySTLString::operator[](size_type pos)
 
 MySTLString::const_reference MySTLString::operator[](size_type pos) const
 {
-	return this->operator[](pos);
+	return const_cast<MySTLString*>(this)->operator[](pos);
 }
 

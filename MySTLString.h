@@ -28,7 +28,7 @@ public:
 	using reference = value_type;				// reference 
 	using const_reference = const value_type&;	// const reference
 	using pointer = char*;						// pointer
-	using const_pointer = const char*;				// const_pointer
+	using const_pointer = const char*;			// const_pointer
 
 	/* Elment access */
 	// Returns reference to the character at specified location pos.
@@ -44,8 +44,11 @@ public:
 	const_reference back()	const;
 
 	// Returns pointer to the underlying array serving as character storage.
-	pointer data();
-	const_pointer data()	const;
+	CharT* data();
+	const CharT* data()	const;
+
+	// Returns a pointer to a null-terminated character array with data equivalent to those stored in the string.
+	const CharT* c_str() const;
 
 	// Operator assignment overloaded
 	MySTLString& operator=(const MySTLString &s);
