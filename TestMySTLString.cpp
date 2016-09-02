@@ -41,17 +41,30 @@ int main(void)
 	MySTLString::const_reference const_at_value = s3.at(2);
 	cout << "Test const at():" << endl;
 	cout << "const_at_value(which is s3.at(2)) = " << const_at_value << endl;
+	cout << "**********************" << endl;
 
-	// test front() to return reference
+	// test front() to return const reference
 	cout << "Test front():" << endl;
 //	cout << "s1.front() = " << s1.front() << endl;		// will throw exception
 	cout << "s2.front() = " << s2.front() << endl;
 	cout << "**********************" << endl;
 
-	// test back() to return reference
+	// test const front() to return const reference
+	MySTLString::const_reference const_front_ref = s2.front();
+	cout << "Test const front():" << endl;
+	cout << "const_front_ref(which is s2.front()) = " << const_front_ref << endl;
+	cout << "**********************" << endl;
+
+	// test back() to return const reference
 	cout << "Test back():" << endl;
 //	cout << "s1.back() = " << s1.back() << endl;		// will throw exception
 	cout << "s3.back() = " << s3.back() << endl;
+	cout << "**********************" << endl;
+
+	// test const back() to return const reference
+	MySTLString::const_reference const_back_ref = s3.back();
+	cout << "Test const back():" << endl;
+	cout << "const_back_ref(whick is s3.back()) = " << const_back_ref << endl;
 	cout << "**********************" << endl;
 
 	// test data() to return pointer
@@ -59,9 +72,21 @@ int main(void)
 	cout << "s3.data() = " << s3.data() << endl;
 	cout << "**********************" << endl;
 
-	// test operator[](size_type pos) to return CharT
+	// test const data() to return const pointer
+	MySTLString::const_pointer const_data_value = s3.data();
+	cout << "Test const data():" << endl;
+	cout << "const_data_value(which is s3.data()) = " << const_data_value << endl;
+	cout << "**********************" << endl;
+
+	// test operator[](size_type pos) to return reference
 //	cout << "s1[1] = " << s1[1] << endl;		// will throw exception
 	cout << "s2[1] = " << s2[1] << endl; 
+	cout << "**********************" << endl;
+
+	// test const operator[](size_type pos) to return const reference
+	MySTLString::const_reference const_op_value = s3[1];
+	cout << "Test const operator[](size_type pos):" << endl;
+	cout << "const_op_value(which is s3[1]) = " << const_op_value << endl;
 	cout << "**********************" << endl;
 
 	system("PAUSE");
