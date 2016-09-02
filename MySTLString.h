@@ -27,22 +27,25 @@ public:
 	using value_type = char;					// the value_type
 	using reference = value_type;				// reference 
 	using const_reference = const value_type&;	// const reference
+	using pointer = char*;						// pointer
+	using const_pointer = const char*;				// const_pointer
 
+	/* Elment access */
 	// Returns reference to the character at specified location pos.
 	reference at(size_type pos);
-// 	const_reference at(size_type pos) const;	// I do not know how to convert a reference to const_reference when to return 
+ 	const_reference at(size_type pos) const;	// I do not know how to convert a reference to const_reference when to return 
 
 	// Returns reference to the first character
-	CharT& front();
-	const CharT& front() const;
+	reference front();
+	const_reference front()	const;
 	
 	// Returns reference to the last character, equivalent to operator[](size() - 1)
-	CharT& back();
-	const CharT& back() const;
+	reference back();
+	const_reference back()	const;
 
 	// Returns pointer to the underlying array serving as character storage.
-	CharT* data();
-	const CharT* data()	const;
+	pointer data();
+	const_pointer data()	const;
 
 	// Operator assignment overloaded
 	MySTLString& operator=(const MySTLString &s);

@@ -20,11 +20,12 @@ MySTLString::MySTLString(size_t count, char ch)
 	}
 	else	// when count is not 0
 	{
-		data_ = new char[length_];
-		for (size_t i = 0; i < count; ++i)
+		data_ = new char[length_+1];
+		for (size_t i = 0; i < count - 1; ++i)
 		{
 			data_[i] = ch;
 		}
+		data_[count - 1] = '\0';
 	}
 	
 }
@@ -40,7 +41,7 @@ MySTLString::MySTLString(const char *s)
 		data_ = nullptr;
 		return;
 	}
-	data_ = new char[length_];
+	data_ = new char[length_+1];
 	strcpy(data_, s);
 }
 
@@ -56,7 +57,7 @@ MySTLString::MySTLString(const MySTLString &s)
 	else
 	{
 		length_ = strlen(s.data_);
-		data_ = new char[length_];
+		data_ = new char[length_+1];
 		strcpy(data_, s.data_);
 	}
 }
@@ -76,16 +77,20 @@ MySTLString::~MySTLString()
 // Bounds checking is performed, exception of type std::out_of_range will be thrown on invalid acess
 MySTLString::reference MySTLString::at(size_type pos)
 {
-	if (pos >= strlen(data_))
+	if (pos > strlen(data_))
 	{
 		throw std::out_of_range("pos is cross-border!\n");
 	}
 	return data_[pos];
 }
 
+MySTLString::const_reference MySTLString::at(size_type pos) const
+{
+	return const_cast<MySTLString*>(this)->at(pos);
+}
 
 // Returns reference to the first character
-MySTLString::CharT& MySTLString::front()
+MySTLString::reference MySTLString::front()
 {
 	if (data_ == nullptr)
 	{
@@ -94,13 +99,13 @@ MySTLString::CharT& MySTLString::front()
 		return data_[0];
 }
 
-const MySTLString::CharT& MySTLString::front() const
+MySTLString::const_reference MySTLString::front() const
 {
 	return this->front();
 }
 
 // Returns reference to the last character
-MySTLString::CharT& MySTLString::back()
+MySTLString::reference MySTLString::back()
 {
 	if (data_ == nullptr)
 	{
@@ -109,15 +114,15 @@ MySTLString::CharT& MySTLString::back()
 	return data_[0];
 }
 
-const MySTLString::CharT& MySTLString::back() const
+MySTLString::const_reference MySTLString::back() const
 {
-	return this->back();
+	return const_cast<MySTLString*>(this)->back();
 }
 
 // Returns pointer to the underlying array serving as character storage.
-// The pointer is such that the range[data(); data()+strlen(data_)] is valid 
+// The pointer is such that the range[data(); data()+strlen(data_)+1) is valid 
 // in it correspond to the values stored in the string
-MySTLString::CharT* MySTLString::data() 
+MySTLString::pointer MySTLString::data()
 {
 	if (data_ == nullptr)
 	{
@@ -126,9 +131,9 @@ MySTLString::CharT* MySTLString::data()
 	return data_;
 }
 
-const MySTLString::CharT* MySTLString::data() const
+MySTLString::const_pointer MySTLString::data() const
 {
-	return this->data();
+	return const_cast<MySTLString*>(this)->data();
 }
 
 // Operator= overloaded
@@ -149,7 +154,7 @@ MySTLString& MySTLString::operator=(const MySTLString &s)
 	}
 	char* temp = s.data_;	// copy *s.data_
 	delete data_;						// free old memory
-	data_ = new char[s.length_];			// copy data to data_ member
+	data_ = new char[s.length_+1];			// copy data to data_ member
 	strcpy(data_, temp);
 	length_ = s.length_;
 	return *this;						// return this object
