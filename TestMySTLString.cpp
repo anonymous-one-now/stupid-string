@@ -31,6 +31,8 @@ int main(void)
 	s5 = s4;
 
 
+
+	/* Elment access */
 	// test at() to return reference
 	cout << "Test at():" << endl;
 //	cout << "s1.at(0) = " << s1.at(0) << endl;			// will throw exception
@@ -76,6 +78,27 @@ int main(void)
 	MySTLString::const_pointer const_data_value = s3.data();
 	cout << "Test const data():" << endl;
 	cout << "const_data_value(which is s3.data()) = " << const_data_value << endl;
+	cout << "**********************" << endl;
+
+	// test empty() to check if the string has no characters
+	cout << "Test empty():" << endl;
+	cout << "s1.empty() = " << s1.empty() << endl;
+	cout << "s3.empty() = " << s3.empty() << endl;
+	cout << "**********************" << endl;
+
+
+
+	/* Capacity */
+	// test size() to return the number of CharT elements in the string
+	cout << "Test size():" << endl;
+	cout << "s1.size() = " << s1.size() << endl;
+	cout << "s3.size() = " << s3.size() << endl;
+	cout << "**********************" << endl;
+
+	// test length() to return the number of CharT elements in the string
+	cout << "Test length():" << endl;
+	cout << "s_countIsZero.length() = " << s_countIsZero.length() << endl;
+	cout << "s2.length() = " << s2.length() << endl;
 	cout << "**********************" << endl;
 
 	// test operator[](size_type pos) to return reference

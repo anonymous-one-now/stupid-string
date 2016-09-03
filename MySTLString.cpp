@@ -73,6 +73,9 @@ MySTLString::~MySTLString()
 //	std::cout << "length_ = " << length_ << std::endl;	// for test
 }
 
+
+
+/* Elment access */
 // Returns a reference to the character at specified location pos.
 // Bounds checking is performed, exception of type std::out_of_range will be thrown on invalid acess
 MySTLString::reference MySTLString::at(size_type pos)
@@ -142,6 +145,26 @@ const MySTLString::CharT* MySTLString::data() const
 const MySTLString::CharT* MySTLString::c_str() const
 {
 	return const_cast<MySTLString*>(this)->data();
+}
+
+
+
+/* Capacity */
+// Checks if the string has no characters
+bool MySTLString::empty() const
+{
+	return length_ == 0;
+}
+
+// Returns the number of CharT elements in the string, i.e std::distance(begin(), end())
+MySTLString::size_type MySTLString::size() const
+{
+	return length_;
+}
+
+MySTLString::size_type MySTLString::length() const
+{
+	return length_;
 }
 
 // Operator= overloaded
