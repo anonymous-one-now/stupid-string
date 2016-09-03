@@ -25,8 +25,8 @@ public:
 	using size_type = size_t;		
 	using CharT = char;							// the character type
 	using value_type = char;					// the value_type
-	using reference = value_type;				// reference 
-	using const_reference = const value_type&;	// const reference
+	using reference = value_type&;				// reference 
+	using const_reference = const reference;	// const reference
 	using pointer = char*;						// pointer
 	using const_pointer = const char*;			// const_pointer
 
