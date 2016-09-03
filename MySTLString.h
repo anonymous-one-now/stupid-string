@@ -50,6 +50,14 @@ public:
 	// Returns a pointer to a null-terminated character array with data equivalent to those stored in the string.
 	const CharT* c_str() const;
 
+	/* Capacity */
+	// Checks if the string has no characters, i.e. whether begin() == end()
+	bool empty() const;
+
+	// Returns the number of CharT elements in the string, i.e whether std::distance(begin(), end());
+	size_type size() const;
+	size_type length() const;
+	
 	// Operator assignment overloaded
 	MySTLString& operator=(const MySTLString &s);
 
