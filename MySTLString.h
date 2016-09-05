@@ -3,6 +3,7 @@
 // Most comments excerpt from cppreference.com
 
 // Make a string container. And try to finish all the function in the basic::string, and I will test it 
+#pragma once
 class MySTLString
 {
 public:
@@ -57,7 +58,7 @@ public:
 	// Returns the number of CharT elements in the string, i.e whether std::distance(begin(), end());
 	size_type size() const;
 	size_type length() const;
-	
+
 	// Operator assignment overloaded
 	MySTLString& operator=(const MySTLString &s);
 
