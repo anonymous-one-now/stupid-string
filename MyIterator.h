@@ -1,5 +1,6 @@
 #pragma once
 #include "MySTLString.h"
+#include <memory>
 
 namespace Ite
 {
@@ -15,6 +16,8 @@ namespace Ite
 class MyIterator
 {
 public:
+	// Default constructor
+	MyIterator():p(nullptr)	{}
 
 	// Copy constructor
 	MyIterator(const MyIterator&);
@@ -23,7 +26,7 @@ public:
 	~MyIterator();
 
 	// Copy assignment overloaded
-	MyIterator& operator=(const MyIterator);
+	MyIterator& operator=(const MyIterator& );
 
 	// Operator++() overloaded
 	// Prefix increment
@@ -31,6 +34,8 @@ public:
 
 	// Operator* overloaded
 	Ite::reference operator*()	const;
+
+	Ite::pointer p;
 };
 
 class MyInputIterator : public virtual MyIterator
@@ -73,7 +78,7 @@ public:
 class MyForwardIterator :public MyInputIterator, public MyOutputIterator
 {
 	// Default constructor
-	MyForwardIterator();
+	MyForwardIterator() { };
 
 	// Operator++ overloaded
 	// Postfix increment with multiple passes
@@ -108,9 +113,6 @@ class MyRandomAccessIterator : public MyBidirectionalIterator
 
 	// Operator- overloaded like "a - n", in which a is an iterator and n is a constant number
 	friend MyIterator operator-(const MyIterator&, Ite::size_type);
-
-	// Operator- overloaded like "a - b", in which the both of a and b are iterators
-	friend MyIterator operator-(const MyIterator&, const MyIterator&);
 
 	// compound assignment member operator += and -=
 	// Operator+= overloaded

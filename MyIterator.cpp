@@ -1,0 +1,250 @@
+#include "MyIterator.h"
+#include <cstring>
+#include <iostream>
+
+/* Class MyIterator */
+// Copy constructor
+MyIterator::MyIterator(const MyIterator& it)
+{
+	p = new Ite::value_type(*it);
+}
+
+// destructor
+MyIterator::~MyIterator()
+{
+	delete p;
+}
+
+// Copy assignment overloaded
+MyIterator& MyIterator::operator=(const MyIterator& it)
+{
+	if (*this == it)
+	{
+		return *this;
+	}
+	p = nullptr;
+	p = new Ite::value_type(*it);
+	return *this;
+}
+
+// Prefix increment
+MyIterator& MyIterator::operator++()
+{
+	++p;
+	return *this;
+}
+
+// Operator* overloaded
+Ite::reference MyIterator::operator*() const
+{
+	return *p;
+}
+
+
+/* Class MyInputIterator */
+// Postfix increment
+MyIterator MyInputIterator::operator++(int)
+{
+	MyInputIterator temp(*this);
+	++p;
+	return temp;
+}
+
+// Operator* overloaded, return a Ite::value_type 
+Ite::value_type MyInputIterator::operator*() const
+{
+	return *p;
+}
+
+// Operator->() overloaded, return a Ite::pointer
+Ite::pointer MyInputIterator::operator->() const
+{
+	return this->p;
+}
+
+// Non-member operator== overloaded, return a bool whether two MyIterator is equal
+bool operator==(const MyIterator& lIt, const MyIterator& rIt)
+{
+	return !(std::strcmp(lIt.p->data(), rIt.p->data()));
+}
+
+// Non-member operator!= overloaded, return a bool whether two MyIterator is non-equal
+bool operator!=(const MyIterator& lIt, const MyIterator& rIt)
+{
+	return !(lIt == rIt);
+}
+
+
+/* Class MyOutputIterator */
+// Operator* overloaded
+Ite::reference MyOutputIterator::operator*() const
+{
+	return *p;
+}
+
+// Operator++ overloaded
+// Postfix increment without multiple passes
+MyIterator MyOutputIterator::operator++(int)
+{
+	MyOutputIterator temp(*this);
+	++p;
+	return temp;
+}
+
+/* MyForwardIterator */
+// Postfix increment with multiple passes
+MyIterator MyForwardIterator::operator++(int count) 
+{
+	if (count < 0)
+	{
+		std::cerr << "You should pass a positive number.\n" << std::endl;
+		return;
+	}
+	while (count > 0)
+	{
+		++p;
+		--count;
+	}
+	return *this;
+}
+
+/* MyBidirectionlaIterator */
+// Operator-- overloaded
+// Prefix decrement with mutliple passes
+MyIterator& MyBidirectionalIterator::operator--()
+{
+	--p;
+	return *this;
+}
+
+// Operator-- overloaded
+// Postfix decrement with mutliple passes
+MyIterator MyBidirectionalIterator::operator--(int)
+{
+	MyBidirectionalIterator it(*this);
+	--p;
+	return it;
+}
+
+/* Class MyRandomAccessIterator */
+// Non-member bool operator function overloaded
+bool operator>=(const MyIterator& lhs, const MyIterator& rhs)
+{
+	int rLen = lhs.p->size();
+	int lLen = rhs.p->size();
+
+	int minLen = rLen < rLen ? lLen : rLen;
+
+	// deal with the situation when one or two of is 0.
+	if (rLen == 0 && lLen == 0)
+	{
+		return true;
+	}
+	else if (rLen != 0 && lLen == 0)
+	{
+		return true;
+	}
+	else if (rLen == 0 && lLen != 0)
+	{
+		return false;
+	}
+
+	// Compare the character in [0, minLen) lexicographically
+	for (size_t i = 0; i < minLen; ++i)
+	{
+		if (lhs.p->at[i] >= rhs.p->at[i])
+		{
+			return true;
+		}
+		else // lhs.p->at[i] < rhs.p->at[i]
+		{
+			return false;
+		}
+	}
+
+	// All characters in [0, minLen) are equal
+	return rLen > lLen ? true : false;
+}
+
+// Implement operator< in code-reuse way
+bool operator<(const MyIterator& lhs, const MyIterator& rhs)
+{
+	return !(lhs >= rhs);
+}
+
+// Implement operator>= in code-reuse way
+bool operator<=(const MyIterator& lhs, const MyIterator& rhs)
+{
+	return (lhs < rhs) || (rhs == lhs);
+}
+
+// Implement opeator> in code-reuse way
+bool operator>(const MyIterator& lhs, const MyIterator& rhs)
+{
+	return !(lhs >= rhs);
+}
+
+// Implement opeator+(const MyIterator& lhs, Ite::size_type count)
+MyIterator operator+(const MyIterator& lhs, Ite::size_type count)
+{
+	MyIterator it(lhs);
+
+	if (count < 0)
+	{
+		std::cerr << "You should pass a positive number.\n" << std::endl;
+		return;
+	}
+
+	while (count > 0)
+	{
+		++it.p;
+		--count;
+	}
+	return it;
+}
+
+//  Implement opeator+(Ite::size_type count, const MyIterator& rhs) in code-reuse way
+MyIterator operator+(Ite::size_type pos, const MyIterator& rhs)
+{
+	MyIterator it(rhs + pos);
+	return it;
+}
+
+// Implement operator-(const MyIterator& lhs, Ite::size_type count)
+MyIterator operator-(const MyIterator& lhs, Ite::size_type pos)
+{
+	MyIterator it(lhs);
+
+	if (pos < 0)
+	{
+		std::cerr << "You should pass a positive number.\n" << std::endl;
+	}
+
+	while (pos > 0)
+	{
+		--it.p;
+		--pos;
+	}
+	return it;
+}
+
+// Operator+= overloaded
+MyIterator& MyRandomAccessIterator::operator+=(Ite::size_type pos)
+{
+	p = (p + pos);
+	return *this;
+}
+
+// Operator-= overloaded
+MyIterator& MyRandomAccessIterator::operator-=(Ite::size_type pos)
+{
+	p = (p - pos);
+	return *this;
+}
+
+// Operator[] overloaded
+Ite::reference MyRandomAccessIterator::operator[](Ite::size_type pos) const
+{
+	return *p;
+}
+
