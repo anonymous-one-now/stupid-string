@@ -98,7 +98,7 @@ MyIterator MyForwardIterator::operator++(int count)
 	if (count < 0)
 	{
 		std::cerr << "You should pass a positive number.\n" << std::endl;
-		return;
+		return *this;
 	}
 	while (count > 0)
 	{
@@ -133,7 +133,7 @@ bool operator>=(const MyIterator& lhs, const MyIterator& rhs)
 	int rLen = lhs.p->size();
 	int lLen = rhs.p->size();
 
-	int minLen = rLen < rLen ? lLen : rLen;
+	size_t minLen = rLen < rLen ? lLen : rLen;
 
 	// deal with the situation when one or two of is 0.
 	if (rLen == 0 && lLen == 0)
@@ -150,9 +150,14 @@ bool operator>=(const MyIterator& lhs, const MyIterator& rhs)
 	}
 
 	// Compare the character in [0, minLen) lexicographically
+	char* lCharString = new char[rLen + 1];
+	char* rCharString = new char[lLen + 1];
+
+	strcpy(lCharString, (lhs.p)->data());
+	strcpy(rCharString, (rhs.p)->data());
 	for (size_t i = 0; i < minLen; ++i)
 	{
-		if (lhs.p->at[i] >= rhs.p->at[i])
+		if (lCharString[i] > rCharString[i])
 		{
 			return true;
 		}
@@ -192,7 +197,7 @@ MyIterator operator+(const MyIterator& lhs, Ite::size_type count)
 	if (count < 0)
 	{
 		std::cerr << "You should pass a positive number.\n" << std::endl;
-		return;
+		return it;
 	}
 
 	while (count > 0)

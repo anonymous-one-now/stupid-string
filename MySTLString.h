@@ -34,7 +34,7 @@ public:
 	/* Elment access */
 	// Returns reference to the character at specified location pos.
 	reference at(size_type pos);
- 	const_reference at(size_type pos) const;	// I do not know how to convert a reference to const_reference when to return 
+ 	const_reference at(size_type pos) const;	
 
 	// Returns reference to the first character
 	reference front();
