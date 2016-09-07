@@ -1,6 +1,5 @@
 #include "MySTLString.h"
 #include <cstring>
-#include <iostream>
 #include <stdexcept>
 
 // Construct a empty string(zero size and unspecified capacity).
@@ -204,3 +203,16 @@ MySTLString::const_reference MySTLString::operator[](size_type pos) const
 	return const_cast<MySTLString*>(this)->operator[](pos);
 }
 
+std::ostream& operator<<(std::ostream& os, MySTLString& myStr)
+{
+	char* temp = myStr.data_;
+	int count = 0;
+	int strLen = myStr.size();
+	while (count < strLen)
+	{
+		os << *(temp + count);
+		++count;
+	}
+	
+	return os;
+}

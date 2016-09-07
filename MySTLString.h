@@ -4,6 +4,7 @@
 
 // Make a string container. And try to finish all the function in the basic::string, and I will test it 
 #pragma once
+#include <iostream>
 class MySTLString
 {
 public:
@@ -65,6 +66,9 @@ public:
 	// Operator [] overloaded
 	reference operator[](size_type pos);
 	const_reference operator[](size_type pos) const;
+
+	// Ostream operator overloaded
+	friend std::ostream& operator<<(std::ostream& os, MySTLString& myStr);
 
 private:
 	char* data_;

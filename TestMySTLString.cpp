@@ -1,4 +1,5 @@
 #include "MySTLString.h"
+#include "MyIterator.h"
 #include <iostream>
 
 using std::cout;
@@ -111,6 +112,25 @@ int main(void)
 	cout << "Test const operator[](size_type pos):" << endl;
 	cout << "const_op_value(which is s3[1]) = " << const_op_value << endl;
 	cout << "**********************" << endl;
+
+
+	system("PAUSE");
+	// Test MyIterator
+	MySTLString myStr[3];
+	myStr[0] = "asd";
+	myStr[1] = "qwe";
+	myStr[2] = "lala";
+	MyIterator It(myStr[0]);
+	cout << "myStr[0] = " << myStr[0] << endl;
+	cout << "*It = " << *It << endl;
+
+//	something wrong with prefix increment, which is contrary to my design
+//	++It;
+//	cout << "++It, *It = " << *It << endl;
+
+	// Test MyInputIterator
+	MySTLString myStr2[3] = { "lala", "qwe", "asd", };
+	MyInputIterator myIt;
 
 	system("PAUSE");
 	return 0;

@@ -40,6 +40,14 @@ Ite::reference MyIterator::operator*() const
 	return *p;
 }
 
+/*
+// Operator<< overloaded
+std::ostream& operator<<(std::ostream& os, MyIterator& It)
+{
+	os << It.p->data();
+	return os;
+}
+*/
 
 /* Class MyInputIterator */
 // Postfix increment
@@ -93,7 +101,7 @@ MyIterator MyOutputIterator::operator++(int)
 
 /* MyForwardIterator */
 // Postfix increment with multiple passes
-MyIterator MyForwardIterator::operator++(int count) 
+MyIterator MyForwardIterator::operator++(int count)
 {
 	if (count < 0)
 	{

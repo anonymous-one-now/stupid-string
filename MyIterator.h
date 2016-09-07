@@ -1,5 +1,5 @@
 #pragma once
-#include "MySTLString.h"
+#include "MySTLString.h"	// which include <iostream>
 #include <memory>
 
 namespace Ite
@@ -19,6 +19,8 @@ public:
 	// Default constructor
 	MyIterator():p(nullptr)	{}
 
+	MyIterator(MySTLString& myStr):p(new MySTLString(myStr)){}
+
 	// Copy constructor
 	MyIterator(const MyIterator&);
 
@@ -34,6 +36,9 @@ public:
 
 	// Operator* overloaded
 	Ite::reference operator*()	const;
+
+	// Operator<< overloaded
+//	friend std::ostream& operator<<(std::ostream& os, MyIterator& It);
 
 	Ite::pointer p;
 };
