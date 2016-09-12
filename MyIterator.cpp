@@ -6,13 +6,13 @@
 // Copy constructor
 MyIterator::MyIterator(const MyIterator& it)
 {
-	p = new Ite::value_type(*it);
+	p = it.p;
 }
 
 // destructor
 MyIterator::~MyIterator()
 {
-	delete p;
+
 }
 
 // Copy assignment overloaded
@@ -23,7 +23,7 @@ MyIterator& MyIterator::operator=(const MyIterator& it)
 		return *this;
 	}
 	p = nullptr;
-	p = new Ite::value_type(*it);
+	p = it.p;
 	return *this;
 }
 
@@ -50,6 +50,13 @@ std::ostream& operator<<(std::ostream& os, MyIterator& It)
 */
 
 /* Class MyInputIterator */
+
+// Copy constructor
+MyInputIterator::MyInputIterator(MyInputIterator& myInputIt)
+{
+	MyIterator::p = myInputIt.p;
+}
+
 // Postfix increment
 MyIterator MyInputIterator::operator++(int)
 {
@@ -84,6 +91,13 @@ bool operator!=(const MyIterator& lIt, const MyIterator& rIt)
 
 
 /* Class MyOutputIterator */
+
+// Copy constructor
+MyOutputIterator::MyOutputIterator(MyOutputIterator& myOutIt)
+{
+	MyIterator::p = myOutIt.p;
+}
+
 // Operator* overloaded
 Ite::reference MyOutputIterator::operator*() const
 {
@@ -100,6 +114,11 @@ MyIterator MyOutputIterator::operator++(int)
 }
 
 /* MyForwardIterator */
+MyForwardIterator::MyForwardIterator(MyForwardIterator& myForwardIt)
+{
+	MyIterator::p = myForwardIt.p;
+}
+
 // Postfix increment with multiple passes
 MyIterator MyForwardIterator::operator++(int count)
 {

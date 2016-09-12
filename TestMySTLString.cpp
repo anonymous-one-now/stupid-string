@@ -125,13 +125,27 @@ int main(void)
 	cout << "*It = " << *It << endl;
 
 //	something wrong with prefix increment, which is contrary to my design
-//	++It;
-//	cout << "++It, *It = " << *It << endl;
-
+	++It;
+	cout << "++It, *It = " << *It << endl;
+	++It;
+	cout << "++It, *It = " << *It << endl;
 	// Test MyInputIterator
 	MySTLString myStr2[3] = { "lala", "qwe", "asd", };
-	MyInputIterator myIt;
+	MyInputIterator myDefauInputIt;
+	MyInputIterator myInputIt(myStr2[0]);
+	
+	cout << "*myIt = " << *myInputIt << endl;
+	myInputIt++;
+	cout << "myIt++, myIt = " << *myInputIt << endl;
+	MyInputIterator myInputIt2(myInputIt);
+	cout << "*myIt2 = " << *myInputIt2 << endl;
 
+	MyOutputIterator myDefauOutputIt;
+	MyOutputIterator myOutputIt(myStr2[0]);
+	cout << "*myOutputIt = " << *myOutputIt << endl;
+	myOutputIt++;
+	cout << "++myOutputIt, myOutputIt = " << *myOutputIt << endl;
+	
 	system("PAUSE");
 	return 0;
 }

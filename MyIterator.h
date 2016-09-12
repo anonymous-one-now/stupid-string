@@ -19,7 +19,8 @@ public:
 	// Default constructor
 	MyIterator():p(nullptr)	{}
 
-	MyIterator(MySTLString& myStr):p(new MySTLString(myStr)){}
+	// Constructor
+	MyIterator(MySTLString& myStr) :p(&myStr) { }
 
 	// Copy constructor
 	MyIterator(const MyIterator&);
@@ -47,6 +48,15 @@ class MyInputIterator : public virtual MyIterator
 {
 public:
 
+	// Default constructor
+	MyInputIterator() :MyIterator() {};
+
+	// Constructor
+	MyInputIterator(MySTLString& myStr) :MyIterator(myStr) {};
+
+	// Copy constructor
+	MyInputIterator(MyInputIterator&);
+	
 	// Postfix increment
 	MyIterator operator++(int);
 
@@ -68,6 +78,14 @@ public:
 class MyOutputIterator :public virtual MyIterator
 {
 public:
+	// Default constructor
+	MyOutputIterator():MyIterator()	{}
+
+	// Constructor
+	MyOutputIterator(MySTLString& myStr):MyIterator(myStr)	{}
+
+	// Copy constructor
+	MyOutputIterator(MyOutputIterator&);
 
 	// Operator* overloaded 
 	Ite::reference operator*() const;
@@ -83,6 +101,15 @@ public:
 class MyForwardIterator :public MyInputIterator, public MyOutputIterator
 {
 	// Default constructor
+	MyForwardIterator():MyIterator(){}
+
+	// Constructor
+	MyForwardIterator(MySTLString& mystr):MyIterator(mystr)	{}
+
+	// Copy constructor
+	MyForwardIterator(MyForwardIterator&);
+
+	// Default constructor
 	MyForwardIterator() { };
 
 	// Operator++ overloaded
@@ -92,6 +119,7 @@ class MyForwardIterator :public MyInputIterator, public MyOutputIterator
 
 class MyBidirectionalIterator :public MyForwardIterator
 {
+
 	// Operator-- overloaded
 	// Prefix decrement with multiple passes
 	MyIterator& operator--();
