@@ -203,6 +203,7 @@ MySTLString::const_reference MySTLString::operator[](size_type pos) const
 	return const_cast<MySTLString*>(this)->operator[](pos);
 }
 
+// Operator<< overloaded
 std::ostream& operator<<(std::ostream& os, MySTLString& myStr)
 {
 	char* temp = myStr.data_;
@@ -215,4 +216,28 @@ std::ostream& operator<<(std::ostream& os, MySTLString& myStr)
 	}
 	
 	return os;
+}
+
+
+// Operator== overloaded
+bool operator==(const MySTLString& lhs, const MySTLString& rhs)
+{
+	int lLen = lhs.size();
+	int rLen = rhs.size();
+
+	if (lLen == rLen)
+	{
+		for (size_t i = 0; i < lLen; ++i)
+		{
+			if (lhs[i] != rhs[i])
+			{
+				return false;
+			}
+		}
+	}
+	else // lLen != rLen
+	{
+		return false;
+	}
+
 }

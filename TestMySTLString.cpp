@@ -123,12 +123,13 @@ int main(void)
 	MyIterator It(myStr[0]);
 	cout << "myStr[0] = " << myStr[0] << endl;
 	cout << "*It = " << *It << endl;
+	cout << "**********************" << endl;
 
-//	something wrong with prefix increment, which is contrary to my design
 	++It;
-	cout << "++It, *It = " << *It << endl;
+	cout << "++It; *It = " << *It << endl;
 	++It;
-	cout << "++It, *It = " << *It << endl;
+	cout << "++It; *It = " << *It << endl;
+	cout << "**********************" << endl;
 	// Test MyInputIterator
 	MySTLString myStr2[3] = { "lala", "qwe", "asd", };
 	MyInputIterator myDefauInputIt;
@@ -136,16 +137,58 @@ int main(void)
 	
 	cout << "*myIt = " << *myInputIt << endl;
 	myInputIt++;
-	cout << "myIt++, myIt = " << *myInputIt << endl;
+	cout << "myIt++; *myIt = " << *myInputIt << endl;
 	MyInputIterator myInputIt2(myInputIt);
 	cout << "*myIt2 = " << *myInputIt2 << endl;
+	cout << "**********************" << endl;
 
 	MyOutputIterator myDefauOutputIt;
 	MyOutputIterator myOutputIt(myStr2[0]);
 	cout << "*myOutputIt = " << *myOutputIt << endl;
 	myOutputIt++;
-	cout << "++myOutputIt, myOutputIt = " << *myOutputIt << endl;
+	cout << "myOutputIt++; *myOutputIt = " << *myOutputIt << endl;
+	cout << "**********************" << endl;
+
+	MyForwardIterator myDefaultForwardIt;
+	MyForwardIterator myForwardIt(myStr2[0]);
+	cout << "*myForwardIt = " << *myForwardIt << endl;
+	myForwardIt++;
+	cout << "myForward++; *myForwardIt = " << *myForwardIt << endl;
+	cout << "**********************" << endl;
+
+	MyBidirectionalIterator myDefaultBidirectIt;
+	MyBidirectionalIterator myDirectIt(myStr2[1]);
+	cout << "*myDirectIt = " << *myDirectIt << endl;
+	myDirectIt++;
+	cout << "myDirectIt++; *myDirectIt = " << *myDirectIt << endl;
+	--myDirectIt;
+	myDirectIt--;
+	cout << "--myDirectIt; myDirectIt--; *myDirectIt = " << *myDirectIt << endl;
+	cout << "**********************" << endl;
+
+	MyRandomAccessIterator myDefaultRandomIt;
+	MyRandomAccessIterator myRandomIt1(myStr2[0]);
+	MyRandomAccessIterator myRandomIt2(myStr2[1]);
+
+	cout << "(myRandomIt1 > myRandomIt2) = " << (myRandomIt1 > myRandomIt2) << endl;
+	cout << "(myRandomIt1 < myRandomIt2) = " << (myRandomIt1 < myRandomIt2) << endl;
+	cout << "(myRandomIt1 <= myRandomIt2) = " << (myRandomIt1 <= myRandomIt2) << endl;
+	cout << "(myRandomIt1 >= myRandomIt2) = " << (myRandomIt1 >= myRandomIt2) << endl;
+	cout << "**********************" << endl;
+	cout << "*myRandomIt1 = " << *myRandomIt1 << endl;
+	cout << "*myRandomIt2 = " << *myRandomIt2 << endl;
+	cout << "*(myRandomIt1 + 2) = " << *(myRandomIt1 + 2) << endl;
+	cout << "*(myRandomIt2 - 1) = " << *(myRandomIt2 - 1) << endl;
 	
+	myRandomIt1 += 1;
+	myRandomIt2 -= 1;
+	cout << "myRandomIt1 += 1; *myRandomIt1 = " << *myRandomIt1 << endl;
+	cout << "myRandomIt2 -= 1; *myRandomIt2 = " << *myRandomIt2 << endl;
+	cout << "**********************" << endl;
+	cout << "myRandomIt1[0] = " << myRandomIt1[0] << endl;
+	cout << "myRandomIt1[1] = " << myRandomIt1[1] << endl;
+	cout << "myRandomIt1[2] = " << myRandomIt1[2] << endl;
+//	cout << "myRandomIt1[124] = " << myRandomIt1[124] << endl;
 	system("PAUSE");
 	return 0;
 }

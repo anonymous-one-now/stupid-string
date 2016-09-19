@@ -100,17 +100,18 @@ public:
 // it is undefined to dereference one before that.
 class MyForwardIterator :public MyInputIterator, public MyOutputIterator
 {
+public:
 	// Default constructor
 	MyForwardIterator():MyIterator(){}
 
 	// Constructor
-	MyForwardIterator(MySTLString& mystr):MyIterator(mystr)	{}
+	MyForwardIterator(MySTLString& mystr):MyIterator(mystr){}
 
 	// Copy constructor
 	MyForwardIterator(MyForwardIterator&);
 
-	// Default constructor
-	MyForwardIterator() { };
+	// Operator* overloaded
+	Ite::reference operator*() const { return *p; }
 
 	// Operator++ overloaded
 	// Postfix increment with multiple passes
@@ -119,6 +120,15 @@ class MyForwardIterator :public MyInputIterator, public MyOutputIterator
 
 class MyBidirectionalIterator :public MyForwardIterator
 {
+public:
+	// Default constructor
+	MyBidirectionalIterator():MyIterator()	{}
+
+	// Constructor
+	MyBidirectionalIterator(MySTLString& mystr):MyIterator(mystr){}
+
+	// Copy constructor
+	MyBidirectionalIterator(MyBidirectionalIterator& myBidirectIt) { MyIterator::p = myBidirectIt.p; }
 
 	// Operator-- overloaded
 	// Prefix decrement with multiple passes
@@ -131,7 +141,18 @@ class MyBidirectionalIterator :public MyForwardIterator
 
 class MyRandomAccessIterator : public MyBidirectionalIterator
 {
+public:
+	// Default constructor
+	MyRandomAccessIterator():MyIterator()	{}
+
+	// Constructor
+	MyRandomAccessIterator(MySTLString& mystr):MyIterator(mystr){}
+
+	// Copy Constructor
+	MyRandomAccessIterator(MyBidirectionalIterator& myRandomIt) { MyIterator::p = myRandomIt.p; }
+	
 	// Non-member bool operator functions overloaded
+	
 	friend bool operator>(const MyIterator&, const MyIterator&);
 	friend bool operator<(const MyIterator&, const MyIterator&);
 	friend bool operator<=(const MyIterator&, const MyIterator&);
@@ -155,5 +176,5 @@ class MyRandomAccessIterator : public MyBidirectionalIterator
 	MyIterator& operator-=(Ite::size_type);
 
 	// Operator[] overloaded
-	Ite::reference operator[](Ite::size_type) const;
+	char& operator[](Ite::size_type) const;
 };

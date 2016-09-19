@@ -80,7 +80,7 @@ Ite::pointer MyInputIterator::operator->() const
 // Non-member operator== overloaded, return a bool whether two MyIterator is equal
 bool operator==(const MyIterator& lIt, const MyIterator& rIt)
 {
-	return !(std::strcmp(lIt.p->data(), rIt.p->data()));
+	return (*lIt == *rIt);
 }
 
 // Non-member operator!= overloaded, return a bool whether two MyIterator is non-equal
@@ -154,7 +154,6 @@ MyIterator MyBidirectionalIterator::operator--(int)
 }
 
 /* Class MyRandomAccessIterator */
-// Non-member bool operator function overloaded
 bool operator>=(const MyIterator& lhs, const MyIterator& rhs)
 {
 	int rLen = lhs.p->size();
@@ -213,7 +212,7 @@ bool operator<=(const MyIterator& lhs, const MyIterator& rhs)
 // Implement opeator> in code-reuse way
 bool operator>(const MyIterator& lhs, const MyIterator& rhs)
 {
-	return !(lhs >= rhs);
+	return !(lhs <= rhs);
 }
 
 // Implement opeator+(const MyIterator& lhs, Ite::size_type count)
@@ -275,8 +274,13 @@ MyIterator& MyRandomAccessIterator::operator-=(Ite::size_type pos)
 }
 
 // Operator[] overloaded
-Ite::reference MyRandomAccessIterator::operator[](Ite::size_type pos) const
+char& MyRandomAccessIterator::operator[](Ite::size_type pos) const
 {
-	return *p;
+	if (pos < p->size())
+	{
+		return (*p)[pos];
+	}
+	std::cerr << "pos out of range\n";
+	return (*p)[0];
 }
 

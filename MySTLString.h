@@ -70,6 +70,9 @@ public:
 	// Ostream operator overloaded
 	friend std::ostream& operator<<(std::ostream& os, MySTLString& myStr);
 
+	// Non-member bool operator function overloaded
+	friend bool operator==(const MySTLString&, const MySTLString&);
+
 private:
 	char* data_;
 	int length_;
