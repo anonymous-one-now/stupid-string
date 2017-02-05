@@ -1,4 +1,4 @@
-# MySTLString
+# A stupid string implement
 To be familiar with Cpp, so I make a string class for study
 
 # Thanks to all the people in Stack Overflow that helped me to fix the bug commited on Sep 1, 2016
